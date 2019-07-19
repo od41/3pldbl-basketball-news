@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "A random title",
+        "feed": "Lorem ipsum."
+    },
+
+    {
+        "id": 2,
+        "title": "A random title",
+        "feed": "Lorem ipsum."
+    },
+    {
+        "id": 3,
+        "title": "A random title",
+        "feed": "Lorem ipsum."
+    },
+    {
+        "id": 4,
+        "title": "A random title",
+        "feed": "Lorem ipsum."
+    }
+]
