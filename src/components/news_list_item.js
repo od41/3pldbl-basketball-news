@@ -1,22 +1,26 @@
 import React from 'react'
-import '../css/styles.css'
+import { css } from 'glamor'
 
-const NewsItem = (props) => {
-    console.log(props)
+const NewsItem = ({item}) => {
 
-    const items = props.newsData.map((item)=> {
-        return(
-            <div id={item.id}>
-                <h3>{item.title}</h3>
-                <p>{item.feed}</p>
-            </div>
-        )
+    let news_item = css({
+        padding: '20px',
+        boxSizing: 'border-box',
+        borderBottom: '1px solid grey'
+    })
+
+    let news_grey = css({
+        ':hover': {
+            color: 'red',
+        }
     })
 
     return(
-        <div>
-            {items}
+        <div {...news_item} className="news" id={item.id}>
+            <h3 {...news_grey}>{item.title}</h3>
+            <p>{item.feed}</p>
         </div>
+        
     )
 }
 

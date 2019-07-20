@@ -13,12 +13,16 @@ class App extends Component {
     state = {
         news: JSON
     }
+
+    getKeyword = (event) => {
+        console.log(event.target.value)
+    }
     
     render() {
         return (
             <div>
                 <div>
-                    <Header/>
+                    <Header keywords={this.getKeyword} />
                 </div>
                 <div>
                     <NewsList newsData={this.state.news} />

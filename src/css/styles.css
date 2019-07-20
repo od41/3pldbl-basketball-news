@@ -3,17 +3,27 @@
     padding: 0;
 }
 
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 header {
     padding: 2em 4em;
     margin: 0 auto;
     text-align: center;
-    background-color: #230e80;
+    background-color: #042947;
 }
 
 .logo {
     font-weight: bold;
     text-transform: uppercase;
     color: #fff;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
 }
 
 input {
@@ -21,4 +31,26 @@ input {
     margin: 2em auto;
     font-weight: 400;
     color: rgb(48, 27, 27)
+}
+
+.news-list {
+    width: 80%;
+    margin: 2em auto;
+    padding: 0 20px;
+}
+
+.news {
+    background-color: rgba(240, 240, 240, 0.795);
+    margin: 15px 0;
+    padding: .5em 2em;
+}
+
+.news h3 {
+    font-size: 2em;
+    color: #042947;
+}
+
+.news p {
+    font-size: 1.3em;
+    color: #21262bc9;
 }
