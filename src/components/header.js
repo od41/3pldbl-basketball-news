@@ -5,7 +5,8 @@ const Header = (props) => {
 
         return (
             <header>
-                <div className="logo">NewsLogo</div>
+                <img src="img/logo.png" className="logo" />
+                <button id="update" className="update-btn button">Crash the boards</button>
                 <input type='text' onChange={props.keywords}/>
             </header>
         )
