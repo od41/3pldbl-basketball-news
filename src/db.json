@@ -1,23 +1,37 @@
 [
     {
         "id": 1,
-        "title": "A random title",
-        "feed": "Lorem ipsum."
+        "title": "NBA Power Rankings: Ready for a wild West finish?",
+        "feed": "Three days remain in the 2017-18 season, but the bottom half of the Western Conference playoff picture is anything but set. Five teams separated by one game -- the New Orleans Pelicans, San Antonio Spurs, Oklahoma City Thunder, Minnesota Timberwolves and Denver Nuggets -- are battling it out for Nos. 5 through 8.",
+        "image": "img/basketball-thumb.jpg"
     },
 
     {
         "id": 2,
-        "title": "A random title",
-        "feed": "Lorem ipsum."
+        "title": "NBA free agents: Team-by-team lists for 2020 and 2021",
+        "feed": "Who are the upcoming NBA free agents to watch? Nearly half the league hit free agency in 2019, and through mid-July almost every major player has signed. Plenty of stars changed teams, including Kevin Durant, Kyrie Irving, Kawhi Leonard, Jimmy Butler and Kemba Walker.",
+        "image": "img/basketball-thumb.jpg"
+
     },
     {
         "id": 3,
-        "title": "A random title",
-        "feed": "Lorem ipsum."
+        "title": "Wizards to offer Beal 3-year, $111M extension",
+        "feed": "Washington Wizards general manager Tommy Sheppard will offer guard Bradley Beal a three-year, $111 million maximum contract extension upon the All-Star becoming eligible to sign on Friday, Sheppard told ESPN.",
+        "image": "img/basketball-thumb.jpg"
+
     },
     {
         "id": 4,
-        "title": "A random title",
-        "feed": "Lorem ipsum."
+        "title": "Beal, Harris latest to withdraw from Team USA",
+        "feed": "Bradley Beal and Tobias Harris have withdrawn from playing with Team USA in the World Cup this summer, their agents told ESPN.",
+        "image": "img/basketball-thumb.jpg"
+
+    },
+    {
+        "id": 5,
+        "title": "Lakers claim Giannis' younger brother, Kostas",
+        "feed": "The Mavericks waived him Friday. Antetokounmpo attended high school in suburban Milwaukee while his brother began his NBA career. He then spent two seasons at the University of Dayton.",
+        "image": "img/basketball-thumb.jpg"
+
     }
 ]

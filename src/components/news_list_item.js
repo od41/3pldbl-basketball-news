@@ -17,8 +17,10 @@ const NewsItem = ({item}) => {
 
     return(
         <div {...news_item} className="news" id={item.id}>
+            <img src="https://picsum.photos/200" className="news-image" />
             <h3 {...news_grey}>{item.title}</h3>
             <p>{item.feed}</p>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="read-more">Read more</a>
         </div>
         
     )

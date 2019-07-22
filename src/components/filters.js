@@ -1,7 +1,7 @@
 import React from 'react'
 import '../css/styles.css'
 
-const Filter = (props) => {
+const Filters = (props) => {
 
         return (
             <div>
@@ -11,4 +11,4 @@ const Filter = (props) => {
     
 }
 
-export default Filter
+export default Filters
