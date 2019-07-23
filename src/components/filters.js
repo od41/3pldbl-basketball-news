@@ -19,7 +19,14 @@ const Filters = (props) => {
 
     // styles
     const sources = {
-        margin: '0 2em'
+        // margin: '0 2em'
+    }
+
+    const heading = {
+        fontSize: $bodyFont,
+        letterSpacing: '2px',
+        textTransform: 'uppercase',
+        margin: '10px 0',
     }
 
     const items = props.newsSources.map((item) => {
@@ -31,6 +38,7 @@ const Filters = (props) => {
     return(
         
         <div css={sources}>
+            <h3 css={heading}>News Sources</h3>
            {items}
         </div>
     )
