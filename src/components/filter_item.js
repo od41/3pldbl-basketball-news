@@ -3,11 +3,11 @@ import '../css/styles.css'
 
 const FilterItem = (props) => {
 
-        return (
-            <div>
-                FilterItem
-            </div>
-        )
+    return (
+        <div>
+            FilterItem
+        </div>
+    )
     
 }
 

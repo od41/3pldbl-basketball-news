@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import React from 'react'
-// import { css } from 'glamor'
 import { jsx } from '@emotion/core'
 
 const NewsItem = ({item}) => {

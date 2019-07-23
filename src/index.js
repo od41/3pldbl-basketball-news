@@ -1,5 +1,9 @@
+/** @jsx jsx */
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+import './css/styles.css'
+import { jsx } from '@emotion/core'
+
 
 // DATA
 import JSON from './db.json'
@@ -17,6 +21,13 @@ class App extends Component {
         news: JSON
     }
 
+    // styling
+    main = {
+        display: 'grid',
+        gridTemplateColumns: '20% 50%',
+        margin: '4em'
+    }
+
     getKeyword = (event) => {
         console.log(event.target.value)
     }
@@ -24,10 +35,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <Header keywords={this.getKeyword} />
-                </div>
-                <section className="main">
+                <Header keywords={this.getKeyword} />
+                <section css={this.main}>
                     <aside>
                         <div className="sources">
                             <h3>News Sources</h3>
