@@ -1,8 +1,13 @@
+/** @jsx jsx */
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+import './css/styles.css'
+import { jsx } from '@emotion/core'
+
 
 // DATA
-import JSON from './db.json'
+import newsJSON from './db.json'
+import sourcesJSON from './sources.json'
 
 // COMPONENTS
 import Header from './components/header'
@@ -14,8 +19,46 @@ import Order from './components/order'
 class App extends Component {
 
     state = {
-        news: JSON
+        news: newsJSON,
+        sources: sourcesJSON
     }
+
+    // colours
+    $brandPrimary = '#334036'
+    $brandPrimaryDarker = '#1a201b'
+    $brandBackground = '#F6F7FB'
+
+    // font sizes
+    $bodyFont = '.9em'
+    $h3 = '1.2em'
+    $h2 = '1.6em'
+    $h1 = '3em'
+
+    // styling
+    main = {
+        display: 'grid',
+        gridTemplateColumns: '20% 50%',
+        margin: '4em'
+    }
+
+    filters = {
+        padding: '2em',
+        fontSize: this.$bodyFont,
+        background: '#fff',
+        marginRight: '1em',
+        height: '40vh',
+        minWidth: '150px',
+        minHeight: '300px'
+    }
+
+    separator = {
+        margin: '2em auto',
+        width: '100%',
+        color: this.$brandPrimaryDarker,
+        opacity: '0.4'
+    }
+
+    
 
     getKeyword = (event) => {
         console.log(event.target.value)
@@ -24,18 +67,14 @@ class App extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <Header keywords={this.getKeyword} />
-                </div>
-                <section className="main">
-                    <aside>
-                        <div className="sources">
-                            <h3>News Sources</h3>
-                            <Filters/>
+                <Header keywords={this.getKeyword} />
+                <section css={this.main}>
+                    <aside css={this.filters}>
+                        <div>
+                            <Filters newsSources={this.state.sources}/>
                         </div>
-                        <hr />
-                        <div className="order">
-                            <h3>Order by:</h3>
+                        <hr css={this.separator} />
+                        <div>
                             <Order />
                         </div>
                     </aside>
