@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "channel": "ESPN",
+        "status": "active"
+        
+    },
+    {
+        "id": 2,
+        "channel": "Bleacher Reports",
+        "status": "active"
+        
+    },
+    {
+        "id": 3,
+        "channel": "TNT Sports",
+        "status": "active"
+        
+    },
+    {
+        "id": 4,
+        "channel": "SuperSport",
+        "status": "active"
+        
+    },
+    {
+        "id": 5,
+        "channel": "Fox Sports",
+        "status": "active"
+        
+    },
+    {
+        "id": 6,
+        "channel": "BBC Sports",
+        "status": "active"
+        
+    },
+    {
+        "id": 7,
+        "channel": "CNN Sports",
+        "status": "active"
+        
+    }
+    
+
+]

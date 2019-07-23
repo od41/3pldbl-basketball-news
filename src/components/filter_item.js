@@ -1,11 +1,21 @@
+/** @jsx jsx */
 import React from 'react'
-import '../css/styles.css'
+import { jsx } from '@emotion/core'
 
-const FilterItem = (props) => {
+const FilterItem = ({item}) => {
+
+    // styling
+    const filterItem = {
+        marginRight: '10px'
+    }
+
+    const inputMargin = {
+        marginRight: '10px'
+    }
 
     return (
-        <div>
-            FilterItem
+        <div css={filterItem} id={item.id}>
+            <input css={inputMargin} type="checkbox" name={item.channel} />{item.channel}
         </div>
     )
     

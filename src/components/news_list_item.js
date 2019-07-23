@@ -33,7 +33,8 @@ const NewsItem = ({item}) => {
 
     
     const image = {
-        gridArea: 'news-image'
+        gridArea: 'news-image',
+        marginRight: '1em'
    
     }
 
@@ -61,7 +62,7 @@ const NewsItem = ({item}) => {
 
     return(
         <div css={list_item} className="news" id={item.id}>
-            <img src="https://picsum.photos/200" {...image} />
+            <img src="https://picsum.photos/200" css={image} />
             <h3 css={title}>{item.title}</h3>
             <p css={excerpt}>{item.feed}</p>
             <a css={read_more} href="#" target="_blank" rel="noopener noreferrer" >Read more</a>

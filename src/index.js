@@ -6,7 +6,8 @@ import { jsx } from '@emotion/core'
 
 
 // DATA
-import JSON from './db.json'
+import newsJSON from './db.json'
+import sourcesJSON from './sources.json'
 
 // COMPONENTS
 import Header from './components/header'
@@ -18,7 +19,8 @@ import Order from './components/order'
 class App extends Component {
 
     state = {
-        news: JSON
+        news: newsJSON,
+        sources: sourcesJSON
     }
 
     // styling
@@ -40,7 +42,7 @@ class App extends Component {
                     <aside>
                         <div className="sources">
                             <h3>News Sources</h3>
-                            <Filters/>
+                            <Filters newsSources={this.state.sources}/>
                         </div>
                         <hr />
                         <div className="order">
