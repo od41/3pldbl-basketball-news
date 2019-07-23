@@ -20,7 +20,7 @@ const Header = (props) => {
     const header = {
         padding: '30px 4em',
         display: 'grid',
-        gridTemplateColumns: '30% auto',
+        gridTemplateColumns: '20% 30% 20%',
         width: 'calc(100% - 8em)',
         boxShadow: '0px 1px 4px rgba(0,0,0,0.1)',
         background: '#fff',
@@ -51,12 +51,20 @@ const Header = (props) => {
         }
     }
 
+    const searchField = {
+        width: '100%',
+        padding: '1em 20px',
+        border: '1px solid',
+        borderColor: $brandPrimaryDarker,
+        borderRadius: '25px'
+    }
+
 
     return (
         <header css={header}>
             <img src={logo_url} css={logo} alt="3PLDBL Logo" />
+            <input css={searchField} type='text' onChange={props.keywords}  placeholder="Search" />
             <button id="update" css={updateBtn} >Crash the boards</button>
-            <input type='text' onChange={props.keywords}/>
         </header>
     )
     
