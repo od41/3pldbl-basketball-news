@@ -8,5 +8,5 @@ This is a practice project to help understand React better particularly Ability 
 
 ## Demo
 
-You can view a demo of the project [here](https://glitch.me)
+You can view a demo of the project [here](https://3pldbl-bball.glitch.me/)
 
