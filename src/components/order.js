@@ -1,14 +1,14 @@
 /** @jsx jsx */
-import React from 'react'
+// import React from 'react'
 import { jsx } from '@emotion/core'
 
 const Order = (props) => {
 
     // font sizes
     const $bodyFont = '.9em'
-    const $h3 = '1.2em'
-    const $h2 = '1.6em'
-    const $h1 = '3em'
+    // const $h3 = '1.2em'
+    // const $h2 = '1.6em'
+    // const $h1 = '3em'
 
     // styling
     const heading = {
