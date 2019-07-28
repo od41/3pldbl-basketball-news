@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import './css/styles.css'
 import { jsx } from '@emotion/core'
+// import parser from 'rss-parser'
 
 
 // DATA
@@ -15,12 +16,20 @@ import NewsList from './components/news_list'
 import Filters from './components/filters'
 import Order from './components/order'
 
+// RSS Feed Parser
+let Parser = require('rss-parser');
+let parser = new Parser({
+    customFields: {
+        item: [[ 'image', 'imageURL' ]]
+      }
+});
 
 class App extends Component {
 
     state = {
         news: newsJSON,
-        sources: sourcesJSON
+        sources: sourcesJSON,
+        data: {}
     }
 
     // colours
@@ -58,13 +67,28 @@ class App extends Component {
         opacity: '0.4'
     }
 
-    
+
+    componentDidMount() {
+        fetch(`https://www.espn.com/espn/rss/nba/news`)
+          .then(res => res.text())
+          .then(cleanedString => cleanedString.replace("\ufeff", ""))
+          .then(textXML => parser.parseString(textXML))
+          .then(news => {this.setState({ data: news.items})})
+      }
+
+    // componentDidMount() {
+    //     fetch(`https://www.espn.com/espn/rss/nba/news`)
+    //       .then(res => res.text())
+    //       .then(news => console.log('COMPONENET DID MOUNT: ' + news))
+    //   }
 
     getKeyword = (event) => {
         console.log(event.target.value)
     }
     
     render() {
+        console.log(this.state.data)
+
         return (
             <div>
                 <Header keywords={this.getKeyword} />
@@ -80,7 +104,7 @@ class App extends Component {
                     </aside>
                     
                     <section className="news-list">
-                        <NewsList newsData={this.state.news} />
+                        <NewsList newsData={this.state.data} />
                     </section>
                 </section>
             </div>

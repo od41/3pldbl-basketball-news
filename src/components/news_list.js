@@ -7,22 +7,24 @@ import NewsItem from './news_list_item'
 const NewsList = (props) => {
 
     // colours
-    const $brandPrimary = '#334036'
-    const $brandPrimaryDarker = '#1a201b'
-    const $brandBackground = '#F6F7FB'
+    // const $brandPrimary = '#334036'
+    // const $brandPrimaryDarker = '#1a201b'
+    // const $brandBackground = '#F6F7FB'
 
     // font sizes
-    const $bodyFont = '.9em'
-    const $h3 = '1.2em'
-    const $h2 = '1.6em'
-    const $h1 = '3em'
+    // const $bodyFont = '.9em'
+    // const $h3 = '1.2em'
+    // const $h2 = '1.6em'
+    // const $h1 = '3em'
 
     // styles
     const container = {
         margin: '0 2em'
     }
 
-    const items = props.newsData.map((item) => {
+    const newsDataArray = Array.from(props.newsData)
+
+    const items = newsDataArray.map((item) => {
         return(
             <NewsItem key={item.id} item={item} />
         )
@@ -30,6 +32,9 @@ const NewsList = (props) => {
 
     return(
         <section css={container}>
+            {/* {console.log('before conversion: ' + props.newsData)}
+            {console.log('after conversion: ' + newsDataArray)} */}
+
            {items}
         </section>
     )
