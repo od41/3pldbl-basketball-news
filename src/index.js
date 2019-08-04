@@ -18,19 +18,90 @@ import Order from './components/order'
 
 // RSS Feed Parser
 let Parser = require('rss-parser');
-let parser = new Parser({
-    customFields: {
-        item: [[ 'image', 'imageURL' ]]
-      }
-});
+
+// Parse xml abstraction fucntion
+const parseMyXML = (options, xmlString) => {
+    let parserObject = new Parser(options)
+    return parserObject.parseString(xmlString)
+}
 
 class App extends Component {
 
     state = {
         news: newsJSON,
         sources: sourcesJSON,
-        data: {}
+        dataEspn: {},
+        dataEuroleague: {},
+        // dataEurobasketFemale: {}
     }
+
+    // rss feed parser custom options
+
+    // espn feed media content custom options
+    espnOptions = {
+        customFields: {
+            item: [
+                [ 'image', 'imageURL' ]
+            ]
+          }
+    }
+
+    // Euroleague feed media content custom options
+    euroleagueOptions = {
+        customFields: {
+            // feed: [ ''],
+            item: [
+                ['webportal:mainteamnew', 'imageURL', {keepArray: true}]
+            ]
+          }
+    }
+
+    // make the output of all rss feeds the same
+    rssNormalizer = (feedOption, rssFeed) => {
+        let normalizedFeed = []
+        const rssArray = Array.from(rssFeed)
+
+        switch(feedOption){
+            case 'espn': {
+
+                normalizedFeed = rssArray.map((item) => {
+                    return(
+                       {
+                        'date': item.pubDate,
+                        'source': 'ESPN',
+                        'imageURL': item.imageURL,
+                        'title': item.title,
+                        'contentSnippet': item.contentSnippet,
+                        'link': item.link
+                       }
+                    )
+                })
+                
+
+                return normalizedFeed
+            }
+            case 'euroleague': {
+                normalizedFeed = rssArray.map((item) => {
+
+                    let image = item['imageURL'][0]['webportal:file'][0]['webportal:url'][0]
+
+                    return(
+                       {
+                        'date': item.pubDate,
+                        'source': 'Euroleague',
+                        'imageURL': image,
+                        'title': item.title,
+                        'contentSnippet': item.contentSnippet,
+                        'link': item.link
+                       }
+                    )
+                })
+                
+                return normalizedFeed
+            }
+        }
+    }
+
 
     // colours
     $brandPrimary = '#334036'
@@ -69,25 +140,55 @@ class App extends Component {
 
 
     componentDidMount() {
+
+        // fetch ESPN
         fetch(`https://www.espn.com/espn/rss/nba/news`)
           .then(res => res.text())
           .then(cleanedString => cleanedString.replace("\ufeff", ""))
-          .then(textXML => parser.parseString(textXML))
-          .then(news => {this.setState({ data: news.items})})
+          .then(textXML => parseMyXML(this.espnOptions, textXML))
+          .then(news => {this.setState( {dataEspn: this.rssNormalizer('espn', news.items)} )} );
+
+        // fetch WNBA
+        // fetch(`https://www.espn.com/espn/rss/nba/news`)
+        //   .then(res => res.text())
+        //   .then(cleanedString => cleanedString.replace("\ufeff", ""))
+        //   .then(textXML => parser.parseString(textXML))
+        //   .then(news => {this.setState({ data: news.items})});
+
+        //   fetch Euroleague
+        // fetch(`https://www.eurobasket.com/reports/RSS/rssfeed_EU_M.xml`, {'mode': 'cors'})
+        //   .then(res => res.text())
+        //   .then(cleanedString => cleanedString.replace("\ufeff", ""))
+        //   .then(textXML => parseMyXML({}, textXML))
+        //   .then(news => {this.setState({ dataEurobasketMale: news.items})});
+
+        //   fetch anyother feed that works
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        const url = "https://www.euroleague.net/rssfeed/27/180.xml"; // site that doesn’t send Access-Control-*
+        fetch(proxyurl + url)
+          .then(res => res.text())
+          .then(cleanedString => cleanedString.replace("\ufeff", ""))
+          .then(textXML => parseMyXML(this.euroleagueOptions, textXML) )
+          .then(news => this.setState( {dataEuroleague: this.rssNormalizer('euroleague', news.items)} ))
+          .catch(error => console.error('Error:', error) );
+
       }
 
-    // componentDidMount() {
-    //     fetch(`https://www.espn.com/espn/rss/nba/news`)
-    //       .then(res => res.text())
-    //       .then(news => console.log('COMPONENET DID MOUNT: ' + news))
-    //   }
+ 
 
     getKeyword = (event) => {
         console.log(event.target.value)
     }
     
     render() {
-        console.log(this.state.data)
+        // console.log('ESPN Source: ',this.state.dataEspn)
+        
+        // console.log('Euroleague Source: ', this.state.dataEuroleague)
+
+        // console.log('Normalized Espn Source: ', this.state.dataEspn)
+
+
+        
 
         return (
             <div>
@@ -104,7 +205,8 @@ class App extends Component {
                     </aside>
                     
                     <section className="news-list">
-                        <NewsList newsData={this.state.data} />
+                        <NewsList newsData={this.state.dataEspn} />
+                        <NewsList newsData={this.state.dataEuroleague} />
                     </section>
                 </section>
             </div>

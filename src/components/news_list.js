@@ -31,6 +31,8 @@ const NewsList = (props) => {
     })
 
     return(
+
+        
         <section css={container}>
             {/* {console.log('before conversion: ' + props.newsData)}
             {console.log('after conversion: ' + newsDataArray)} */}

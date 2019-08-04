@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react'
+// import React from 'react'
 import { jsx } from '@emotion/core'
 import logo_url from '../assets/img/logo.png'
 
@@ -8,13 +8,13 @@ const Header = (props) => {
     // colours
     const $brandPrimary = '#334036'
     const $brandPrimaryDarker = '#1a201b'
-    const $brandBackground = '#F6F7FB'
+    // const $brandBackground = '#F6F7FB'
 
     // font sizes
-    const $bodyFont = '.9em'
-    const $h3 = '1.2em'
-    const $h2 = '1.6em'
-    const $h1 = '3em'
+    // const $bodyFont = '.9em'
+    // const $h3 = '1.2em'
+    // const $h2 = '1.6em'
+    // const $h1 = '3em'
 
     // styling
     const header = {
