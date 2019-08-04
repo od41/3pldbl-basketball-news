@@ -32,7 +32,10 @@ class App extends Component {
         sources: sourcesJSON,
         dataEspn: {},
         dataEuroleague: {},
-        // dataEurobasketFemale: {}
+        dataTalkbasket: {},
+        dataSi: {},
+        dataNcaaMale: {},
+        dataNcaaFemale: {}
     }
 
     // rss feed parser custom options
@@ -52,6 +55,16 @@ class App extends Component {
             // feed: [ ''],
             item: [
                 ['webportal:mainteamnew', 'imageURL', {keepArray: true}]
+            ]
+          }
+    }
+
+    // Euroleague feed media content custom options
+    talkbasketOptions = {
+        customFields: {
+            // feed: [ ''],
+            item: [
+                ['description', 'meta', {keepArray: true}]
             ]
           }
     }
@@ -76,7 +89,6 @@ class App extends Component {
                        }
                     )
                 })
-                
 
                 return normalizedFeed
             }
@@ -96,6 +108,27 @@ class App extends Component {
                        }
                     )
                 })
+                
+                return normalizedFeed
+            }
+            case 'talkbasket': {
+                normalizedFeed = rssArray.map((item) => {
+
+                    let image = item['meta'][0]
+
+                    return(
+                       {
+                        'date': item.pubDate,
+                        'source': 'Talkbasket',
+                        'imageURL': image,
+                        'title': item.title,
+                        'contentSnippet': item.contentSnippet,
+                        'link': item.link
+                       }
+                    )
+                })
+
+                console.log('Inside talkbasket rssNormalizer: ',  normalizedFeed)
                 
                 return normalizedFeed
             }
@@ -141,6 +174,8 @@ class App extends Component {
 
     componentDidMount() {
 
+        const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
         // fetch ESPN
         fetch(`https://www.espn.com/espn/rss/nba/news`)
           .then(res => res.text())
@@ -155,15 +190,24 @@ class App extends Component {
         //   .then(textXML => parser.parseString(textXML))
         //   .then(news => {this.setState({ data: news.items})});
 
-        //   fetch Euroleague
-        // fetch(`https://www.eurobasket.com/reports/RSS/rssfeed_EU_M.xml`, {'mode': 'cors'})
-        //   .then(res => res.text())
-        //   .then(cleanedString => cleanedString.replace("\ufeff", ""))
-        //   .then(textXML => parseMyXML({}, textXML))
-        //   .then(news => {this.setState({ dataEurobasketMale: news.items})});
+        //   fetch talkbasket feed
+        fetch(proxyurl + `https://www.talkbasket.net/feed`)
+          .then(res => res.text())
+          .then(cleanedString => cleanedString.replace("\ufeff", ""))
+          .then(textXML => parseMyXML(this.talkbasketOptions, textXML))
+          .then(data => console.log('Inside fetch talkbasket: ', data.items));
+
+        //   fetch talkbasket feed
+        fetch(proxyurl + `https://www.talkbasket.net/feed`)
+          .then(res => res.text())
+          .then(cleanedString => cleanedString.replace("\ufeff", ""))
+          .then(textXML => parseMyXML(this.talkbasketOptions, textXML))
+          .then(news => this.setState( {dataTalkbasket: this.rssNormalizer('talkbasket', news.items)} ))
+          .catch(error => console.error('Error: ', error) );
+
+        
 
         //   fetch anyother feed that works
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
         const url = "https://www.euroleague.net/rssfeed/27/180.xml"; // site that doesn’t send Access-Control-*
         fetch(proxyurl + url)
           .then(res => res.text())
@@ -205,8 +249,9 @@ class App extends Component {
                     </aside>
                     
                     <section className="news-list">
-                        <NewsList newsData={this.state.dataEspn} />
-                        <NewsList newsData={this.state.dataEuroleague} />
+                        {/* <NewsList newsData={this.state.dataEspn} />
+                        <NewsList newsData={this.state.dataEuroleague} /> */}
+                        <NewsList newsData={this.state.dataTalkbasket} />
                     </section>
                 </section>
             </div>
