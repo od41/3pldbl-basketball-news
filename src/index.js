@@ -113,22 +113,25 @@ class App extends Component {
             }
             case 'talkbasket': {
                 normalizedFeed = rssArray.map((item) => {
-
+                    let regex = /src\s*=\s*"(.+?)"/g
                     let image = item['meta'][0]
+                    let srcFound = image.match(regex)
+
+                    srcFound = srcFound[0].substr(4)
+
+                    srcFound = srcFound.toString().replace(/"/g, "");
 
                     return(
                        {
                         'date': item.pubDate,
                         'source': 'Talkbasket',
-                        'imageURL': image,
+                        'imageURL': srcFound,
                         'title': item.title,
                         'contentSnippet': item.contentSnippet,
                         'link': item.link
                        }
                     )
                 })
-
-                console.log('Inside talkbasket rssNormalizer: ',  normalizedFeed)
                 
                 return normalizedFeed
             }
@@ -181,7 +184,9 @@ class App extends Component {
           .then(res => res.text())
           .then(cleanedString => cleanedString.replace("\ufeff", ""))
           .then(textXML => parseMyXML(this.espnOptions, textXML))
-          .then(news => {this.setState( {dataEspn: this.rssNormalizer('espn', news.items)} )} );
+          .then(news => {this.setState( {dataEspn: this.rssNormalizer('espn', news.items)} )} )
+          .catch(error => console.error('Error: ', error) );
+          
 
         // fetch WNBA
         // fetch(`https://www.espn.com/espn/rss/nba/news`)
@@ -190,12 +195,6 @@ class App extends Component {
         //   .then(textXML => parser.parseString(textXML))
         //   .then(news => {this.setState({ data: news.items})});
 
-        //   fetch talkbasket feed
-        fetch(proxyurl + `https://www.talkbasket.net/feed`)
-          .then(res => res.text())
-          .then(cleanedString => cleanedString.replace("\ufeff", ""))
-          .then(textXML => parseMyXML(this.talkbasketOptions, textXML))
-          .then(data => console.log('Inside fetch talkbasket: ', data.items));
 
         //   fetch talkbasket feed
         fetch(proxyurl + `https://www.talkbasket.net/feed`)
@@ -249,8 +248,8 @@ class App extends Component {
                     </aside>
                     
                     <section className="news-list">
-                        {/* <NewsList newsData={this.state.dataEspn} />
-                        <NewsList newsData={this.state.dataEuroleague} /> */}
+                        <NewsList newsData={this.state.dataEspn} />
+                        <NewsList newsData={this.state.dataEuroleague} />
                         <NewsList newsData={this.state.dataTalkbasket} />
                     </section>
                 </section>
