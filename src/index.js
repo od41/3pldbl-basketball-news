@@ -7,7 +7,7 @@ import { jsx } from '@emotion/core'
 
 
 // DATA
-import newsJSON from './db.json'
+// import newsJSON from './db.json'
 import sourcesJSON from './sources.json'
 
 // COMPONENTS
@@ -15,11 +15,12 @@ import Header from './components/header'
 import NewsList from './components/news_list'
 import Filters from './components/filters'
 import Order from './components/order'
+import SearchBox from './components/search_box'
 
 // RSS Feed Parser
 let Parser = require('rss-parser');
 
-// Parse xml abstraction fucntion
+// Parse xml abstraction function
 const parseMyXML = (options, xmlString) => {
     let parserObject = new Parser(options)
     return parserObject.parseString(xmlString)
@@ -28,14 +29,17 @@ const parseMyXML = (options, xmlString) => {
 class App extends Component {
 
     state = {
-        news: newsJSON,
+        // news: newsJSON,
         sources: sourcesJSON,
         dataEspn: {},
         dataEuroleague: {},
         dataTalkbasket: {},
         dataSi: {},
         dataNcaaMale: {},
-        dataNcaaFemale: {}
+        dataNcaaFemale: {},
+
+        // the search state
+        searchInput: ""
     }
 
     // rss feed parser custom options
@@ -178,6 +182,13 @@ class App extends Component {
     componentDidMount() {
 
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
+        // https://www.ncaa.com/news/basketball-women/d1/rss.xml
+        // https://www.ncaa.com/news/basketball-men/d1/rss.xml
+        // https://www.si.com/rss/si_nba.rss
+        // https://www.eurobasket.com/reports/RSS/rssfeed_US_W.xml
+        // https://www.eurobasket.com/reports/RSS/rssfeed_EU_W.xml
+        // https://www.eurobasket.com/reports/RSS/rssfeed_AF_M.xml
+        // https://www.eurobasket.com/reports/RSS/rssfeed_AF_W.xml
 
         // fetch ESPN
         fetch(`https://www.espn.com/espn/rss/nba/news`)
@@ -220,7 +231,13 @@ class App extends Component {
  
 
     getKeyword = (event) => {
+        // the search function
+        this.setState( {searchInput: event.target.value} )
+        // console.log(this.searchInput)
         console.log(event.target.value)
+        const filteredFeed = this.state.dataEspn.filter(dataEspn => {
+            return dataEspn.title.toLowerCase().includes(event.target.value.toLowerCase() )
+        })
     }
     
     render() {

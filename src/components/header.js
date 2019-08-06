@@ -3,6 +3,8 @@
 import { jsx } from '@emotion/core'
 import logo_url from '../assets/img/logo.png'
 
+import SearchBox from './search_box';
+
 const Header = (props) => {
 
     // colours
@@ -51,19 +53,13 @@ const Header = (props) => {
         }
     }
 
-    const searchField = {
-        width: '100%',
-        padding: '1em 20px',
-        border: '1px solid',
-        borderColor: $brandPrimaryDarker,
-        borderRadius: '25px'
-    }
+    
 
 
     return (
         <header css={header}>
             <img src={logo_url} css={logo} alt="3PLDBL Logo" />
-            <input css={searchField} type='text' onChange={props.keywords}  placeholder="Search" />
+            <SearchBox keywords={props.keywords} />
             <button id="update" css={updateBtn} >Crash the boards</button>
         </header>
     )
