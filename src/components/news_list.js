@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import React from 'react'
-import { jsx } from '@emotion/core'
+// import React from 'react'
+import { jsx } from '@emotion/core';
 
-import NewsItem from './news_list_item'
+import NewsItem from './news_list_item';
 
 const NewsList = (props) => {
 
