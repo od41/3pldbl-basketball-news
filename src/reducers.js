@@ -1,22 +1,49 @@
-import { CHANGE_SEARCH_FIELD, UPDATE_FEED} from './constants';
-import { combineReducers } from '../../../../../AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux';
+import { 
+    CHANGE_SEARCH_FIELD,
+    REQUEST_FEED_PENDING,
+    REQUEST_ESPN_FEED_SUCCESS,
+    REQUEST_EUROLEAGUE_FEED_SUCCESS,
+    REQUEST_TALKBASKET_FEED_SUCCESS,
+    REQUEST_FEED_FAILED
+} from './constants';
 
+import { combineReducers } from 'redux';
 
-const initialState = {
-    searchInput: '',
-    combinedFeed: []
+const initialStateFeed = {
+    isPending: false,
+    espnFeed: [],
+    euroleagueFeed: [],
+    talkbasketFeed: [],
+    error: ''
 }
 
-export const grabCombinedFeed = (state=initialState, action={}) => {
+export const requestFeed = (state=initialStateFeed, action={}) => {
     switch(action.type) {
-        case UPDATE_FEED:
-            return Object.assign({}, state, {combinedFeed: action.payload})
+        case REQUEST_FEED_PENDING:
+            return Object.assign({}, state, {isPending: true})
+        
+        case REQUEST_ESPN_FEED_SUCCESS:
+            return Object.assign({}, state, {espnFeed: action.payload, isPending: false})
+
+        case REQUEST_EUROLEAGUE_FEED_SUCCESS:
+            return Object.assign({}, state, {euroleagueFeed: action.payload, isPending: false})
+
+        case REQUEST_TALKBASKET_FEED_SUCCESS:
+            return Object.assign({}, state, {talkbasketFeed: action.payload, isPending: false})    
+        
+        case REQUEST_FEED_FAILED:
+            return Object.assign({}, state, {error: action.payload, isPending: true})
+        
         default:
-            return 'default'
+            return state;
     }
 }
 
-export const searchFeed = (state=initialState, action={}) => {
+const initialStateSearch = {
+    searchInput: ''
+}
+
+export const searchFeed = (state=initialStateSearch, action={}) => {
     switch(action.type) {
         case CHANGE_SEARCH_FIELD:
             return Object.assign({}, state, {searchInput: action.payload})
@@ -26,6 +53,6 @@ export const searchFeed = (state=initialState, action={}) => {
 }
 
 export const rootReducer = combineReducers({
-    grabCombinedFeed, 
+    requestFeed, 
     searchFeed
 })

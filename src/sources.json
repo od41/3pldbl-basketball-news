@@ -7,40 +7,17 @@
     },
     {
         "id": 2,
-        "channel": "Bleacher Reports",
+        "channel": "Euroleague",
         "status": "active"
         
     },
     {
         "id": 3,
-        "channel": "TNT Sports",
-        "status": "active"
-        
-    },
-    {
-        "id": 4,
-        "channel": "SuperSport",
-        "status": "active"
-        
-    },
-    {
-        "id": 5,
-        "channel": "Fox Sports",
-        "status": "active"
-        
-    },
-    {
-        "id": 6,
-        "channel": "BBC Sports",
-        "status": "active"
-        
-    },
-    {
-        "id": 7,
-        "channel": "CNN Sports",
+        "channel": "Talkbasket",
         "status": "active"
         
     }
+    
     
 
 ]

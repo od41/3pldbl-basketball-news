@@ -7,7 +7,7 @@ import { jsx } from '@emotion/core';
 
 
 // ACTIONS
-import { setRssFeed, setSearchField} from '../actions'
+import { requestFeed, setSearchField} from '../actions'
 
 
 // DATA
@@ -24,14 +24,18 @@ import Order from '../components/order'
 const mapStateToProps = (state) => {
     return {
         searchInput: state.searchFeed.searchInput,
-        combinedFeed: state.grabCombinedFeed.combinedFeed
+        espnFeed: state.requestFeed.espnFeed, // I changed this to espnFeed from combinedFeed... take note
+        euroleagueFeed: state.requestFeed.euroleagueFeed, 
+        talkbasketFeed: state.requestFeed.talkbasketFeed, 
+        isPending: state.requestFeed.isPending,
+        error: state.requestFeed.error
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
-        // onRssFeedUpdate: () => dispatch(setRssFeed())
+        onRequestFeed: () => dispatch(requestFeed())
     }
 }
 
@@ -42,15 +46,6 @@ class App extends Component {
         this.state = {
             // news: newsJSON,
             sources: sourcesJSON,
-    
-            // the search state
-            searchInput: "",
-    
-            // filtered feeds
-            filteredEspn: {},
-    
-            // combined Rss feed
-            combinedFeed: []
         }
     }
    
@@ -89,24 +84,27 @@ class App extends Component {
         opacity: '0.4'
     }
 
-    
-    // getKeyword = (event) => {
-    //     // the search function
-    //     this.setState( {searchInput: event.target.value} )
-    //     // console.log(this.state.searchInput)
-    //     const filteredFeedEspn = this.state.dataEspn.filter(dataEspn => {
-    //         return dataEspn.title.toLowerCase().includes(this.state.searchInput.toLowerCase() )
-    //     })
-    //     this.setState( {filteredEspn: filteredFeedEspn})
-    // }
+    componentDidMount() {
+
+        this.props.onRequestFeed()
+        
+      }
     
     render() {        
 
-        const { searchInput, onSearchChange, combinedFeed } = this.props;
-
-        console.log('combinedFeed: ', combinedFeed)
-        console.log('searchInput: ', searchInput)
+        const { isPending, searchInput, onSearchChange, espnFeed, euroleagueFeed, talkbasketFeed } = this.props;
+        const filteredEspnFeed = espnFeed.filter(item =>{
+            return item.title.toLowerCase().includes(searchInput.toLowerCase());
+          })
         
+        const filteredEuroleagueFeed = euroleagueFeed.filter(item =>{
+            return item.title.toLowerCase().includes(searchInput.toLowerCase());
+        })
+
+        const filteredTalkbasketFeed = talkbasketFeed.filter(item =>{
+            return item.title.toLowerCase().includes(searchInput.toLowerCase());
+        })
+
         return (
             <div>
                 <Header keywords={onSearchChange} />
@@ -121,13 +119,17 @@ class App extends Component {
                         </div>
                     </aside>
                     
-                    <section className="news-list">
-                        <RssFeed>
-                            <NewsList newsData={combinedFeed} />
-                            {/* <NewsList newsData={this.state.dataEuroleague} />
-                            <NewsList newsData={this.state.dataTalkbasket} /> */}
-                        </RssFeed>
-                    </section>
+                    { isPending ? (
+                        <h1>Loading</h1>
+                    ) : (
+                        <section className="news-list">
+                            <NewsList newsData={filteredEspnFeed} />
+                            <NewsList newsData={filteredEuroleagueFeed} />
+                            <NewsList newsData={filteredTalkbasketFeed} />
+                        </section>
+                    )}
+                        
+                    
                 </section>
             </div>
         )
