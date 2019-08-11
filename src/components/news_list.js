@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import React from 'react'
-import { jsx } from '@emotion/core'
+// import React from 'react'
+import { jsx } from '@emotion/core';
 
-import NewsItem from './news_list_item'
+import NewsItem from './news_list_item';
 
 const NewsList = (props) => {
 
@@ -31,6 +31,8 @@ const NewsList = (props) => {
     })
 
     return(
+
+        
         <section css={container}>
             {/* {console.log('before conversion: ' + props.newsData)}
             {console.log('after conversion: ' + newsDataArray)} */}

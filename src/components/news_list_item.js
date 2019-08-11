@@ -1,19 +1,19 @@
 /** @jsx jsx */
-import React from 'react'
+// import React from 'react'
 import { jsx } from '@emotion/core'
 
 const NewsItem = ({item}) => {
 
     // colours
     const $brandPrimary = '#334036'
-    const $brandPrimaryDarker = '#1a201b'
-    const $brandBackground = '#F6F7FB'
+    // const $brandPrimaryDarker = '#1a201b'
+    // const $brandBackground = '#F6F7FB'
 
     // font sizes
     const $bodyFont = '.9em'
-    const $h3 = '1.2em'
+    // const $h3 = '1.2em'
     const $h2 = '1.6em'
-    const $h1 = '3em'
+    // const $h1 = '3em'
    
 
     const list_item = {
@@ -61,12 +61,16 @@ const NewsItem = ({item}) => {
         color: $brandPrimary
     }
 
+    
     return(
+        
         <div css={list_item} className="news" id={item.id}>
-            <img src={item.imageURL} css={image} />
+            <img src={item.imageURL} css={image} alt="thumbnail" />
             <h3 css={title}>{item.title}</h3>
+            <span>{item.date}</span>
             <p css={excerpt}>{item.contentSnippet}</p>
             <a css={read_more} href={item.link} target="_blank" rel="noopener noreferrer" >Read more</a>
+            <span>{item.source}</span>
             
         </div>
         
