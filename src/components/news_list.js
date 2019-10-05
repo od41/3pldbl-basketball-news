@@ -22,13 +22,22 @@ const NewsList = (props) => {
         margin: '0 2em'
     }
 
-    const newsDataArray = Array.from(props.newsData)
 
-    const items = newsDataArray.map((item) => {
-        return(
-            <NewsItem key={item.id} item={item} />
-        )
-    })
+    const isSelected = props.isSelected
+    let items = []
+
+    if (isSelected){
+        const newsDataArray = Array.from(props.newsData)
+
+        items = newsDataArray.map((item) => {
+            let i = 0
+            return(
+                <NewsItem key={"news-" + i++} item={item} />
+            )
+        })
+    } else {
+        // const items = []
+    }
 
     return(
 

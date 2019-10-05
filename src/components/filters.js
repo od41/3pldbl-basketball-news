@@ -29,9 +29,23 @@ const Filters = (props) => {
         margin: '10px 0',
     }
 
+    const isSelectedSelector = (newsSource) => {
+        switch(newsSource) {
+            case 'espn':
+                return props.isSelectedEspn
+
+            case 'euroleague':
+                return props.isSelectedEuroleague
+
+            case 'talkbasket':
+                return props.isSelectedTalkbasket
+        }
+    }
+
     const items = props.newsSources.map((item) => {
+        
         return(
-            <FilterItem key={item.id} item={item} />
+            <FilterItem key={item.id} item={item} sources={props.sources} isSelected={isSelectedSelector( item.channel.toLowerCase() )} />
         )
     })
 

@@ -64,7 +64,7 @@ const NewsItem = ({item}) => {
     
     return(
         
-        <div css={list_item} className="news" id={item.id}>
+        <div css={list_item} className="news" id={item.id} >
             <img src={item.imageURL} css={image} alt="thumbnail" />
             <h3 css={title}>{item.title}</h3>
             <span>{item.date}</span>

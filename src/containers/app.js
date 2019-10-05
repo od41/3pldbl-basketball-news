@@ -7,7 +7,7 @@ import { jsx } from '@emotion/core';
 
 
 // ACTIONS
-import { requestFeed, setSearchField} from '../actions'
+import { requestFeed, setSearchField, setSources} from '../actions'
 
 
 // DATA
@@ -35,6 +35,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+        onSourceChange: (event) => dispatch(setSources(event.target.checked)),
         onRequestFeed: () => dispatch(requestFeed())
     }
 }
@@ -46,7 +47,12 @@ class App extends Component {
         this.state = {
             // news: newsJSON,
             sources: sourcesJSON,
+            isViewEspn: true,
+            isViewEuroleague: true,
+            isViewTalkbasket: true
         }
+
+        this.changeTheSource = this.changeTheSource.bind(this)
     }
    
     // colours
@@ -89,10 +95,28 @@ class App extends Component {
         this.props.onRequestFeed()
         
       }
+
+    changeTheSource(event) {
+        // alert(event.target.id + event.target.checked)
+        switch(event.target.id) {
+            case 'espn':
+                this.setState( {isViewEspn: event.target.checked} )
+                break
+
+            case 'euroleague':
+                this.setState ( {isViewEuroleague: event.target.checked} )
+                break
+
+            case 'talkbasket':
+                this.setState ( {isViewTalkbasket: event.target.checked} )
+                break
+        }      
+    }
     
     render() {        
 
-        const { isPending, searchInput, onSearchChange, espnFeed, euroleagueFeed, talkbasketFeed } = this.props;
+        const { isPending, searchInput, onSearchChange, espnFeed, euroleagueFeed, talkbasketFeed, onSourceChange } = this.props;
+        // display the results that match the search query
         const filteredEspnFeed = espnFeed.filter(item =>{
             return item.title.toLowerCase().includes(searchInput.toLowerCase());
           })
@@ -105,13 +129,20 @@ class App extends Component {
             return item.title.toLowerCase().includes(searchInput.toLowerCase());
         })
 
+        // debug
+        console.log("changeTheSource: ",)
+
         return (
             <div>
                 <Header keywords={onSearchChange} />
                 <section css={this.main}>
                     <aside css={this.filters}>
                         <div>
-                            <Filters newsSources={this.state.sources}/>
+                            <Filters newsSources={this.state.sources} sources={this.changeTheSource} 
+                            isSelectedEspn={this.state.isViewEspn}
+                            isSelectedEuroleague={this.state.isViewEuroleague}
+                            isSelectedTalkbasket={this.state.isViewTalkbasket}
+                            />
                         </div>
                         <hr css={this.separator} />
                         <div>
@@ -123,9 +154,9 @@ class App extends Component {
                         <h1>Loading</h1>
                     ) : (
                         <section className="news-list">
-                            <NewsList newsData={filteredEspnFeed} />
-                            <NewsList newsData={filteredEuroleagueFeed} />
-                            <NewsList newsData={filteredTalkbasketFeed} />
+                            <NewsList isSelected={this.state.isViewEspn} newsData={filteredEspnFeed} />
+                            <NewsList isSelected={this.state.isViewEuroleague} newsData={filteredEuroleagueFeed} />
+                            <NewsList isSelected={this.state.isViewTalkbasket} newsData={filteredTalkbasketFeed} />
                         </section>
                     )}
                         
