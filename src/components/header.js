@@ -60,7 +60,7 @@ const Header = (props) => {
         <header css={header}>
             <img src={logo_url} css={logo} alt="3PLDBL Logo" />
             <SearchBox keywords={props.keywords} />
-            <button id="update" css={updateBtn} >Crash the boards</button>
+            <button id="update" css={updateBtn} onClick={props.updateFeed} >Crash the boards</button>
         </header>
     )
     

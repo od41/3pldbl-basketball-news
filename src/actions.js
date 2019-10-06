@@ -4,7 +4,11 @@ import {
     REQUEST_ESPN_FEED_SUCCESS,
     REQUEST_EUROLEAGUE_FEED_SUCCESS,
     REQUEST_TALKBASKET_FEED_SUCCESS,
-    REQUEST_FEED_FAILED
+    REQUEST_FEED_FAILED,
+    SET_SOURCE_TO_ESPN,
+    SET_SOURCE_TO_EUROLEAGUE,
+    SET_SOURCE_TO_TALKBASKET
+
 } from './constants';
 
 
@@ -136,6 +140,8 @@ export const requestFeed = () => (dispatch) => {
     dispatch({type: REQUEST_FEED_PENDING});
 
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://www.euroleague.net/rssfeed/27/180.xml"; // site that doesn’t send Access-Control-*
+
     // https://www.ncaa.com/news/basketball-women/d1/rss.xml
     // https://www.ncaa.com/news/basketball-men/d1/rss.xml
     // https://www.si.com/rss/si_nba.rss
@@ -145,39 +151,58 @@ export const requestFeed = () => (dispatch) => {
     // https://www.eurobasket.com/reports/RSS/rssfeed_AF_W.xml
 
     let dataEspn = [], dataTalkbasket = [], dataEuroleague = []
+
+    let showEspn = true;
+    let showEuroleague = true;
+    let showTalkbasket = true;
     
 
     // fetch ESPN a test
-    fetch(`https://www.espn.com/espn/rss/nba/news`)
-        .then(res => res.text())
-        .then(cleanedString => cleanedString.replace("\ufeff", ""))
-        .then(textXML => parseMyXML(espnOptions, textXML))
-        .then(news =>  dispatch({type: REQUEST_ESPN_FEED_SUCCESS, payload: rssNormalizer('espn', news.items) }) )
-        .catch(error => dispatch({ type: REQUEST_FEED_FAILED, payload: error }) );
+    if (showEspn) {
+        fetch(`https://www.espn.com/espn/rss/nba/news`)
+            .then(res => res.text())
+            .then(cleanedString => cleanedString.replace("\ufeff", ""))
+            .then(textXML => parseMyXML(espnOptions, textXML))
+            .then(news =>  dispatch({type: REQUEST_ESPN_FEED_SUCCESS, payload: rssNormalizer('espn', news.items) }) )
+            .catch(error => dispatch({ type: REQUEST_FEED_FAILED, payload: error }) );
+    }
+    
     
     //   fetch talkbasket feed
-    fetch(proxyurl + `https://www.talkbasket.net/feed`)
-    .then(res => res.text())
-    .then(cleanedString => cleanedString.replace("\ufeff", ""))
-    .then(textXML => parseMyXML(talkbasketOptions, textXML))
-    .then(news =>  dispatch({type: REQUEST_TALKBASKET_FEED_SUCCESS, payload: rssNormalizer('talkbasket', news.items) }) )
-    .catch(error => dispatch({ type: REQUEST_FEED_FAILED, payload: error }) );
+    if (showTalkbasket) {
+        fetch(proxyurl + `https://www.talkbasket.net/feed`)
+            .then(res => res.text())
+            .then(cleanedString => cleanedString.replace("\ufeff", ""))
+            .then(textXML => parseMyXML(talkbasketOptions, textXML))
+            .then(news =>  dispatch({type: REQUEST_TALKBASKET_FEED_SUCCESS, payload: rssNormalizer('talkbasket', news.items) }) )
+            .catch(error => dispatch({ type: REQUEST_FEED_FAILED, payload: error }) );
+    }
+    
     
 
     //   fetch anyother feed that works
-    const url = "https://www.euroleague.net/rssfeed/27/180.xml"; // site that doesn’t send Access-Control-*
-    fetch(proxyurl + url)
-        .then(res => res.text())
-        .then(cleanedString => cleanedString.replace("\ufeff", ""))
-        .then(textXML => parseMyXML(euroleagueOptions, textXML) )
-        .then(news => dispatch({type: REQUEST_EUROLEAGUE_FEED_SUCCESS, payload: rssNormalizer('euroleague', news.items) }) )
-        .catch(error => dispatch({ type: REQUEST_FEED_FAILED, payload: error }) );
-
-
-
+    if (showEuroleague) {
+        fetch(proxyurl + url)
+            .then(res => res.text())
+            .then(cleanedString => cleanedString.replace("\ufeff", ""))
+            .then(textXML => parseMyXML(euroleagueOptions, textXML) )
+            .then(news => dispatch({type: REQUEST_EUROLEAGUE_FEED_SUCCESS, payload: rssNormalizer('euroleague', news.items) }) )
+            .catch(error => dispatch({ type: REQUEST_FEED_FAILED, payload: error }) );
+    }
+    
 };
 
 export const setSearchField = (text) => ({
     type: CHANGE_SEARCH_FIELD,
     payload: text
 });
+
+export const setSources = (text) => {
+    console.log('inside setSources: ', text)
+    
+    const obj = {
+        type: SET_SOURCE_TO_ESPN,
+        value: text
+    }
+    return obj;
+}

@@ -4,7 +4,10 @@ import {
     REQUEST_ESPN_FEED_SUCCESS,
     REQUEST_EUROLEAGUE_FEED_SUCCESS,
     REQUEST_TALKBASKET_FEED_SUCCESS,
-    REQUEST_FEED_FAILED
+    REQUEST_FEED_FAILED,
+    SET_SOURCE_TO_ESPN,
+    SET_SOURCE_TO_EUROLEAGUE,
+    SET_SOURCE_TO_TALKBASKET
 } from './constants';
 
 import { combineReducers } from 'redux';
@@ -52,7 +55,23 @@ export const searchFeed = (state=initialStateSearch, action={}) => {
     }
 }
 
+const initialSource = {
+    espn: false,
+    euroleague: false,
+    talkbasket: false
+}
+
+export const setSource = (state=initialSource, action={}) => {
+    switch(action.type) {
+        case SET_SOURCE_TO_ESPN:
+            return Object.assign({}, state, {espn: true})
+        default:
+            return state
+    }
+}
+
 export const rootReducer = combineReducers({
     requestFeed, 
-    searchFeed
+    searchFeed,
+    setSource
 })

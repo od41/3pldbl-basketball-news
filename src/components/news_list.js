@@ -22,11 +22,26 @@ const NewsList = (props) => {
         margin: '0 2em'
     }
 
-    const newsDataArray = Array.from(props.newsData)
+    const sortByNewest = (news) => {
+        return news.slice().sort(function(a, b){
+          return new Date(b.date) - new Date(a.date);
+        });
+      }
 
-    const items = newsDataArray.map((item) => {
+    
+    
+    console.log("props.newsdata: ", props.newsData)
+
+
+    let newsDataArray = props.newsData.flat();
+
+    //sort the news array by the most recent news
+    const sortedNews = sortByNewest(newsDataArray)
+
+    const news = sortedNews.map((newsItem) => {
+        let i = 0
         return(
-            <NewsItem key={item.id} item={item} />
+            <NewsItem key={"news-" + i++} newsItem={newsItem} />
         )
     })
 
@@ -37,7 +52,7 @@ const NewsList = (props) => {
             {/* {console.log('before conversion: ' + props.newsData)}
             {console.log('after conversion: ' + newsDataArray)} */}
 
-           {items}
+           {news}
         </section>
     )
     
