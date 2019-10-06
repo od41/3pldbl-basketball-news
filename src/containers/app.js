@@ -91,9 +91,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-
-        this.props.onRequestFeed()
-        
+        this.props.onRequestFeed()    
       }
 
     changeTheSource(event) {
@@ -112,10 +110,18 @@ class App extends Component {
                 break
         }      
     }
+
+    toggleSource(isSelected, newsSource) {
+        if(isSelected) {
+            return newsSource
+        } else {
+            return {}
+        }
+    }
     
     render() {        
 
-        const { isPending, searchInput, onSearchChange, espnFeed, euroleagueFeed, talkbasketFeed, onSourceChange } = this.props;
+        const { isPending, searchInput, onSearchChange, espnFeed, euroleagueFeed, talkbasketFeed, onRequestFeed } = this.props;
         // display the results that match the search query
         const filteredEspnFeed = espnFeed.filter(item =>{
             return item.title.toLowerCase().includes(searchInput.toLowerCase());
@@ -129,12 +135,9 @@ class App extends Component {
             return item.title.toLowerCase().includes(searchInput.toLowerCase());
         })
 
-        // debug
-        console.log("changeTheSource: ",)
-
         return (
             <div>
-                <Header keywords={onSearchChange} />
+                <Header keywords={onSearchChange} updateFeed={onRequestFeed} />
                 <section css={this.main}>
                     <aside css={this.filters}>
                         <div>
@@ -154,9 +157,12 @@ class App extends Component {
                         <h1>Loading</h1>
                     ) : (
                         <section className="news-list">
-                            <NewsList isSelected={this.state.isViewEspn} newsData={filteredEspnFeed} />
-                            <NewsList isSelected={this.state.isViewEuroleague} newsData={filteredEuroleagueFeed} />
-                            <NewsList isSelected={this.state.isViewTalkbasket} newsData={filteredTalkbasketFeed} />
+                            {/* a single newslist object to help with the news sorting by time */}
+                            <NewsList  newsData={[this.toggleSource(this.state.isViewEspn, filteredEspnFeed), 
+                                this.toggleSource(this.state.isViewEuroleague, filteredEuroleagueFeed), 
+                                this.toggleSource(this.state.isViewTalkbasket, filteredTalkbasketFeed)] } />
+                            {/* <NewsList isSelected={this.state.isViewEuroleague} newsData={filteredEuroleagueFeed} />
+                            <NewsList isSelected={this.state.isViewTalkbasket} newsData={filteredTalkbasketFeed} /> */}
                         </section>
                     )}
                         
