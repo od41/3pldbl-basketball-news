@@ -23,19 +23,19 @@ const initialStateFeed = {
 export const requestFeed = (state=initialStateFeed, action={}) => {
     switch(action.type) {
         case REQUEST_FEED_PENDING:
-            return Object.assign({}, state, {isPending: true})
+            return {...state, isPending: true}
         
         case REQUEST_ESPN_FEED_SUCCESS:
-            return Object.assign({}, state, {espnFeed: action.payload, isPending: false})
+            return {...state, espnFeed: action.payload, isPending: false}
 
         case REQUEST_EUROLEAGUE_FEED_SUCCESS:
-            return Object.assign({}, state, {euroleagueFeed: action.payload, isPending: false})
+            return {...state, euroleagueFeed: action.payload, isPending: false}
 
         case REQUEST_TALKBASKET_FEED_SUCCESS:
-            return Object.assign({}, state, {talkbasketFeed: action.payload, isPending: false})    
+            return {...state, talkbasketFeed: action.payload, isPending: false}
         
         case REQUEST_FEED_FAILED:
-            return Object.assign({}, state, {error: action.payload, isPending: true})
+            return {...state, error: action.payload, isPending: true}
         
         default:
             return state;
@@ -49,7 +49,7 @@ const initialStateSearch = {
 export const searchFeed = (state=initialStateSearch, action={}) => {
     switch(action.type) {
         case CHANGE_SEARCH_FIELD:
-            return Object.assign({}, state, {searchInput: action.payload})
+            return {...state, searchInput: action.payload}
         default:
             return state
     }
@@ -64,7 +64,7 @@ const initialSource = {
 export const setSource = (state=initialSource, action={}) => {
     switch(action.type) {
         case SET_SOURCE_TO_ESPN:
-            return Object.assign({}, state, {espn: true})
+            return {...state, espn: true}
         default:
             return state
     }
