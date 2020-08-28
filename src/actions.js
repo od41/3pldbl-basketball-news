@@ -3,11 +3,11 @@ import {
     REQUEST_FEED_PENDING,
     REQUEST_ESPN_FEED_SUCCESS,
     REQUEST_EUROLEAGUE_FEED_SUCCESS,
-    REQUEST_TALKBASKET_FEED_SUCCESS,
+    // REQUEST_TALKBASKET_FEED_SUCCESS,
     REQUEST_FEED_FAILED,
     SET_SOURCE_TO_ESPN,
-    SET_SOURCE_TO_EUROLEAGUE,
-    SET_SOURCE_TO_TALKBASKET
+    // SET_SOURCE_TO_EUROLEAGUE,
+    // SET_SOURCE_TO_TALKBASKET
 
 } from './constants';
 
@@ -43,14 +43,14 @@ const parseMyXML = (options, xmlString) => {
     }
 
     // Euroleague feed media content custom options
-    const talkbasketOptions = {
-        customFields: {
-            // feed: [ ''],
-            item: [
-                ['description', 'meta', {keepArray: true}]
-            ]
-          }
-    }
+    // const talkbasketOptions = {
+    //     customFields: {
+    //         // feed: [ ''],
+    //         item: [
+    //             ['description', 'meta', {keepArray: true}]
+    //         ]
+    //       }
+    // }
 
     // make the output of all rss feeds the same
     const rssNormalizer = (feedOption, rssFeed) => {
@@ -126,12 +126,12 @@ const parseMyXML = (options, xmlString) => {
     }
 
     
-    const aggregateFeed = (...args) => {
-        let aggregate = []
-        // joins all the normalized feeds into a single array
-        aggregate = [].concat( ...args) 
-        return aggregate
-      } 
+    // const aggregateFeed = (...args) => {
+    //     let aggregate = []
+    //     // joins all the normalized feeds into a single array
+    //     aggregate = [].concat( ...args) 
+    //     return aggregate
+    //   } 
 
 
 
@@ -150,11 +150,11 @@ export const requestFeed = () => (dispatch) => {
     // https://www.eurobasket.com/reports/RSS/rssfeed_AF_M.xml
     // https://www.eurobasket.com/reports/RSS/rssfeed_AF_W.xml
 
-    let dataEspn = [], dataTalkbasket = [], dataEuroleague = []
+    // let dataEspn = [], dataTalkbasket = [], dataEuroleague = []
 
     let showEspn = true;
     let showEuroleague = true;
-    let showTalkbasket = true;
+    // let showTalkbasket = true;
     
 
     // fetch ESPN a test
@@ -169,14 +169,14 @@ export const requestFeed = () => (dispatch) => {
     
     
     //   fetch talkbasket feed
-    if (showTalkbasket) {
-        fetch(proxyurl + `https://www.talkbasket.net/feed`)
-            .then(res => res.text())
-            .then(cleanedString => cleanedString.replace("\ufeff", ""))
-            .then(textXML => parseMyXML(talkbasketOptions, textXML))
-            .then(news =>  dispatch({type: REQUEST_TALKBASKET_FEED_SUCCESS, payload: rssNormalizer('talkbasket', news.items) }) )
-            .catch(error => dispatch({ type: REQUEST_FEED_FAILED, payload: error }) );
-    }
+    // if (showTalkbasket) {
+    //     fetch(proxyurl + `https://www.talkbasket.net/feed`)
+    //         .then(res => res.text())
+    //         .then(cleanedString => cleanedString.replace("\ufeff", ""))
+    //         .then(textXML => parseMyXML(talkbasketOptions, textXML))
+    //         .then(news =>  dispatch({type: REQUEST_TALKBASKET_FEED_SUCCESS, payload: rssNormalizer('talkbasket', news.items) }) )
+    //         .catch(error => dispatch({ type: REQUEST_FEED_FAILED, payload: error }) );
+    // }
     
     
 
@@ -198,7 +198,7 @@ export const setSearchField = (text) => ({
 });
 
 export const setSources = (text) => {
-    console.log('inside setSources: ', text)
+    // console.log('inside setSources: ', text)
     
     const obj = {
         type: SET_SOURCE_TO_ESPN,

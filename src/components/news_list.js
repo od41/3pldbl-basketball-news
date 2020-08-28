@@ -30,7 +30,7 @@ const NewsList = (props) => {
 
     
     
-    console.log("props.newsdata: ", props.newsData)
+    // console.log("props.newsdata: ", props.newsData)
 
 
     let newsDataArray = props.newsData.flat();
@@ -38,10 +38,11 @@ const NewsList = (props) => {
     //sort the news array by the most recent news
     const sortedNews = sortByNewest(newsDataArray)
 
+    let i = 0
     const news = sortedNews.map((newsItem) => {
-        let i = 0
+        
         return(
-            <NewsItem key={"news-" + i++} newsItem={newsItem} />
+            <NewsItem key={'news-' + i++} newsItem={newsItem} />
         )
     })
 

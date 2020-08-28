@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {Component} from 'react';
+import  {Component} from 'react';
 import { connect } from 'react-redux';
 // import ReactDOM from 'react-dom';
 import '../css/styles.css';
@@ -15,7 +15,7 @@ import { requestFeed, setSearchField, setSources} from '../actions'
 import sourcesJSON from '../sources.json'
 
 // COMPONENTS
-import RssFeed from '../components/rss_feed'
+// import RssFeed from '../components/rss_feed'
 import Header from '../components/header'
 import NewsList from '../components/news_list'
 import Filters from '../components/filters'
@@ -108,6 +108,8 @@ class App extends Component {
             case 'talkbasket':
                 this.setState ( {isViewTalkbasket: event.target.checked} )
                 break
+            default:
+                // do nothing
         }      
     }
 

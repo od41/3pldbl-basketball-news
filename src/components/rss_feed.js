@@ -32,7 +32,7 @@ class RssFeed extends Component {
 
     render() {
 
-        const {combinedFeed, onRequestFeed} = this.props
+        // const {combinedFeed, onRequestFeed} = this.props
         return (
             <div> 
             </div>

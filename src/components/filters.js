@@ -39,6 +39,9 @@ const Filters = (props) => {
 
             case 'talkbasket':
                 return props.isSelectedTalkbasket
+                
+            default:
+                // do nothing
         }
     }
 

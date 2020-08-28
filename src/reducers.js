@@ -6,8 +6,8 @@ import {
     REQUEST_TALKBASKET_FEED_SUCCESS,
     REQUEST_FEED_FAILED,
     SET_SOURCE_TO_ESPN,
-    SET_SOURCE_TO_EUROLEAGUE,
-    SET_SOURCE_TO_TALKBASKET
+    // SET_SOURCE_TO_EUROLEAGUE,
+    // SET_SOURCE_TO_TALKBASKET
 } from './constants';
 
 import { combineReducers } from 'redux';
