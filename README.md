@@ -1,13 +1,13 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[3PLDBL Basketball News Demo](https://3pldbl-basketball-news.vercel.app/).
 
-## 3pldbl
+## 3PLDBL
 
 A basketball news aggregator built with React.js.
 
 This is a practice project to help understand React better particularly Ability to transform XML data into readable JSON format, front end architecturing, framework/library experience, consumption of external resources.
 
-## Demo
+[ESPN](https://www.espn.com/)
+[Euroleague](https://www.euroleague.net/)
+[Talkbasket](https://www.talkbasket.net/)
 
-You can view a demo of the project [here](https://3pldbl-bball.glitch.me/)
-
-[Eurobasket News](https://www.eurobasket.com/news_system/rssfeed.asp)
+All Copyrights belong to the respective owners.
